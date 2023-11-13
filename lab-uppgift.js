@@ -34,14 +34,14 @@ books.forEach(books =>  {
 }
 })
 console.log("=========================");
-
+console.log("Vad är det totala priset, om man skulle sälja alla böcker?");
 //6 Hur mycket är hela bokinnehavet värt? (Vad är det totala priset, om man skulle sälja alla böcker?)
 let summa = 0;
 books.forEach(books =>  {
     summa += books.price;
    })
 let roundSumma = Math.round(summa);
-console.log(roundSumma);
+console.log("Total kostnad på alla böcker är", roundSumma);
 
 console.log("=========================");
 console.log("Vilka böcker är sammanlagt värda mest, dystopian eller mystery?")
@@ -98,4 +98,84 @@ console.log("Vilken bok finns det en dubblett av?")
   } else {
     console.log('Det finns inga dubbletter.');
   }
+  console.log("==================");
+//10  Vilka författare har ett namn som består av mer än 2 ord? Ta inte med författare som har punkter i sina namn.
+
+
+  books.forEach(book => {
+    let authorName = book.author;
+    let words = authorName.split(' ');
+    if (words.length > 2 && !authorName.includes('.')) {
+        console.log(`Författare med två ord på ett namn: ${authorName}`);
+    }
+});
+console.log("==================");
+
+
+//11 Skriv ut namnen på alla författare i bokstavsordning. Sortera efter författarens efternamn.
+
+console.log('Sorterat efter författarens efternamn: ');
+
+function removeLastName(fullName) {
+    const parts = fullName.split(' ')
+    return parts[parts.length - 1]
+}
+books.forEach(book => {
+    book.lastName = removeLastName(book.author)
+});
+
+books.sort((a, b) => {
+    if (a.lastName < b.lastName) {
+        return -1
+    }
+    if (a.lastName > b.lastName) {
+        return 1
+    }
+    else {
+        return 0
+    }
+    
+});
+
+books.forEach(book => {
+    console.log(book.author);
+});
+
+console.log("==================");
+
+//12 Skriv ut namnen på alla böcker vars titel inte börjar med "The".
+console.log('Böcker vars titel inte börjar med The:') 
+
+
+books.forEach(book => {
+    let bookTitle = book.title;
+    if (!bookTitle.startsWith('The')) {
+        console.log(bookTitle);
+    }
+});
+
+console.log("==================");
+
+//13 Skriv ut böckernas titel, sorterat efter titelns längd, i stigande ordning.
+books.sort ((a,b) => a.title.length - b.title.length);
+
+books.forEach(books => console.log(books.title));
+
+console.log("==================");
+
+// 14 Skriv färdigt funktionen, som ska kunna lägga till en ny bok sist i listan.
+
+function addBook(id, title, author, genre, price) {
+    let newBook = {
+        id: 26,
+        title: 'Tomorrow, and Tomorrow, and Tomorrow ',
+        author: 'Gabrielle Zevin',
+        genre: 'Contemporary fiction',
+        price: 19.99
+    }
   
+    books.push (newBook)
+}
+
+addBook("id", "Boktitel", "Författare", "Genre", 19.99);
+console.log(books);
